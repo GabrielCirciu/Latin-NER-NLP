@@ -1,0 +1,16 @@
+# Ignore fullCorpus directory
+# Yes I know it is potentially redundant but I want to be sure
+Data/fullCorpus/
+Data/fullCorpus/* 
+fullCorpus/
+fullCorpus/* 
+
+# Ignore .DS_Store files found (Mac OS X metadata file, not needed for git)
+.DS_Store
+
+# Made a Scripts folder for myself, will go into the notebook when I finish up functions
+Scripts/
+Scripts/*
+
+# Due to ignoring scripts, ignoring requirements.txt as well
+requirements.txt
