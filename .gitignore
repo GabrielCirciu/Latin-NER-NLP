@@ -14,3 +14,4 @@ Scripts/*
 
 # Due to ignoring scripts, ignoring requirements.txt as well
 requirements.txt
+.venv
