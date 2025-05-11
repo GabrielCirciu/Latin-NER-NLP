@@ -136,13 +136,19 @@ The document itself conforms to its own specifications, and is therefore an exam
 These instructions should be used both for papers submitted for review and for final versions of accepted papers.
 \end{comment}
 \end{abstract}
+\section{Embeddings}
+Our initial approach was to vectorize tokens using basic Word2Vec. However, this produced unacceptably low results — the model wasn’t able to separate entities from non-entities in a meaningful way. So we moved on to a more powerful method: using contextual word embeddings from a pretrained BERT model, specifically bert-base-multilingual-cased.
+This model was trained on a large corpus of multilingual text, including Latin, and is capable of generating high-quality embeddings for words in context. We used the Hugging Face Transformers library to load the model and generate embeddings for our tokens. We extacted the embeddings from the last hidden layer of the model. Since BERT works on subword level, we combined the embeddings of the subwords that make up a token by averaging subwords embeddings. This approach has been shown to work well in practice and allows us to obtain a single embedding for each token. We discusse the options of using subwords embeddings for clustering and switching to the word level later on, but this would led to unnecessary complications of the pipeline, for example, by introducing the necessaty of handling scenarios when embeddings of one word end up in different clusters.
 
 \section{Clustering}
-Notes
-
+Once we had the word level embeddings, we applied Kmeans clustering to automatically group the tokens into clusters. Kmeans was the most straightforward choice for the task. One of the challenges we faced was the choice of K - number of clusters. We tried several methods to determine the optimal number of clusters, including the elbow method and silhouette score. The elbow method suggested that big values of K are better, up to the point that number of clusters was close to the number of tokens. Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. So we boiled down the problem to the simplest approach: trial and error. We end up with K=!!!INSERT K!!!
+  We used the KMeans implementation from the scikit-learn library, which provides a simple and efficient way to perform KMeans clustering.
+After clustering we named each cluster by taking the most frequent token in the cluster. We had a short discussion on whether this makes the model semi-supervised, but concluded that it doesn't: the label data is only used after clustering, and doesn't influence how the clusters are formed.
+Then we evaluated the clusters as a baseline for our model. We used the F1 score to measure the perfomance. F1 = !!!INSERT F1!!1
 \section{NN}
-Notes
-
+Next we reconstructed the model using a neural network.
+We used a lightweight neural network consisting of two linear layers with GELU activation and LayerNorm, mapping contextual BERT embeddings to entity class logits. The network is trained using pseudo-labels derived from clustering, which makes inherently supervised neural network unsupervised.
+We used Pytorch to implement and train the model. More than 30 !!!!! epochs didn't seem to improve the results, so we stopped at 30.
 \section{Introduction}
 Original Paper: \footnote{\url{http://acl-org.github.io/ACLPUB/formatting.html}}
 Bert split words embedding not great, no benefit
