@@ -149,39 +149,64 @@ which we observed in most cases to not significantly increase after 10 epochs, a
 As such, we stopped at 30 epochs.
 
 \section{Results}
-Notes: Binary Clustering, Multi-Class Clustering, and Neural Network.
+We have stayed true to the original paper and used the same train and test sets, indicated in Table~\ref{tab:Train-Test-Sets}, 
+and have used the same evaluation metrics, indicated in Table~\ref{tab:Classification-Report}. For the sake of consistency, we have included
+Caesar's \textit{De Bello Civili} in the test set, and all 8 books of Caesar's \textit{De Bello Gallico} in the training set,
+even though it was not part of the original report.
 
-Our results:
 \begin{table}[H]
   \centering
-  \begin{tabular}{lc}
-    \hline
-    \textbf{Command} & \textbf{Output} \\
-    \hline
-    \verb|{\"a}|     & {\"a}           \\
-    \verb|{\^e}|     & {\^e}           \\
-    \verb|{\`i}|     & {\`i}           \\
-    \verb|{\.I}|     & {\.I}           \\
-    \verb|{\o}|      & {\o}            \\
-    \verb|{\'u}|     & {\'u}           \\
-    \verb|{\aa}|     & {\aa}           \\\hline
+  \begin{tabular}{|l|c|c|}
+  \hline
+  \textbf{} & \textbf{Test Set} & \textbf{In or Out-of-domain} \\
+  \hline
+  Fold 1   & Piny & Out \\
+  \hline
+  Fold 2   & Ovid & Out \\
+  \hline
+  Fold 3   & Caesar & In \\
+  \hline
   \end{tabular}
-  \begin{tabular}{lc}
-    \hline
-    \textbf{Command} & \textbf{Output} \\
-    \hline
-    \verb|{\c c}|    & {\c c}          \\
-    \verb|{\u g}|    & {\u g}          \\
-    \verb|{\l}|      & {\l}            \\
-    \verb|{\~n}|     & {\~n}           \\
-    \verb|{\H o}|    & {\H o}          \\
-    \verb|{\v r}|    & {\v r}          \\
-    \verb|{\ss}|     & {\ss}           \\
-    \hline
-  \end{tabular}
-  \caption{Example commands for accented characters, to be used in, \emph{e.g.}, Bib\TeX{} entries.}
-  \label{tab:accents}
+  \caption{Train and Test Sets for each fold}
+  \label{tab:Train-Test-Sets}
 \end{table}
+
+To have a detailed overview of the results, we have included a classification report for each fold and each model 
+in Table~\ref{tab:Classification-Report}, which includes the precision, recall, F1 score, and weighted average F1 score for each fold and each model,
+namely Binary Clustering, Multi-Class Clustering, and Neural Network. While we understand that the standard score for NER is the
+Span F1 score, we have used the normal F1 score for the sake of consistency with the original paper, as there is no mention of specificity of the type
+of F1 score used, and we also understand that on a technical level we could not use the Span F1 score, as \textcolor{red}{!!!INSERT REASON!!!}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|}
+  \hline
+  \textbf{} & \textbf{Prec.} & \textbf{Rec.} & \textbf{F1} & \textbf{Avg. F1} \\
+  \hline
+  \multicolumn{5}{|c|}{\textit{Binary Clustering}} \\
+  \hline
+  Fold 1   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 2   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 3   & \textbf{0.10} & \textbf{0.10} & \textbf{0.10} & \textbf{0.10} \\
+  \hline
+  \multicolumn{5}{|c|}{\textit{Multi-Class Clustering}} \\
+  \hline
+  Fold 1   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 2   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 3   & \textbf{0.10} & \textbf{0.10} & \textbf{0.10} & \textbf{0.10} \\
+  \hline
+  \multicolumn{5}{|c|}{\textit{Neural Network}} \\
+  \hline
+  Fold 1   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 2   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 3   & \textbf{0.10} & \textbf{0.10} & \textbf{0.10} & \textbf{0.10} \\
+  \hline
+  \end{tabular}
+  \caption{Classification report}
+  \label{tab:Classification-Report}
+\end{table}
+
+These results suggest that \textcolor{red}{!!!INSERT CONCLUSION!!!}.
 
 \section{Future Work}
 
