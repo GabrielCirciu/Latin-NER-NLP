@@ -32,6 +32,7 @@
 % To be able to use colors
 \usepackage{xcolor}
 
+\usepackage{float}
 
 \title{Evaluation of Named Entity Recognition in \\ Latin using an Unsupervised Model}
 
@@ -54,10 +55,11 @@
 Tackling the challenges of Natural Language Processing (NLP) in Latin using an unsupervied model has lead to the observation that certain tokenizers 
 such as BERT are better suited for such tasks and that the choice of the model itself plays a significant role in the final results.
 Clustering has proved to be the most straight-forward method to group entities together but a more intricate pipeline lead to a significantly 
-better result, achieving an F1 score of \textcolor{red}{(???)}.
+better result, achieving an F1 score of \textcolor{red}{!!!INSERT F1!!!}.
 \end{abstract}
 
 \section{Introduction}
+
 As international students, the probability of sharing a common language outside of English is not high, however, during our studies we came to the 
 realization that some of usshare knowledge in one such language, Latin. Albeit we are nowhere near fluent, it has sparked curiosity to work with it.
 We chose to head in the direction of our shared curiosity of Latin, and to poke at it within the Named Entity Recognition (NER) sphere.
@@ -68,50 +70,145 @@ As such we chose to build upon a past research, titled
 Our dataset is based on the one used in the original paper, following the same structure, with some additional specifications for clarity.
 
 \section{Dataset}
+
 The dataset from the original paper named 3 works of literature, Caesar's \textit{De Bello Gallico (BG)}, Pliny the Younger's \textit{Epistulae (EP)},
 and Ovid's \textit{Ars Amatoria (AA)}. We have had the great fortune of receiving the full dataset in its entirety, as large text files, in IOB format.
 While all the literature was scrambled in each file, having it in the right format has made it all the more easier to process, and do some
 Exploratory Data Analysis (EDA). After thorough investigation, we have found that there is a slight inconsistency in the original paper regarding 
 the dataset, and that of which we have received. As mentioned, the entirety of \textit{BG}, and parts of \textit{EP} and \textit{AA} were annotated,
-However, parts of Caesar's \textit{De Bello Civili (BC)} were also annotated within the dataset, but left unmentioned in the original paper.
+however, parts of Caesar's \textit{De Bello Civili (BC)} were also annotated within the dataset, but left unmentioned in the original paper.
 
-\begin{figure}[t]
+To have an initial understanding of the expectations of our models, we must understand the distribution of the dataset, namely the amount of
+\textit{Named entities (NE)} and \textit{Non-Named entities (Non NE)} in the dataset. As shown in Figure~\ref{fig:NER-Train} and Figure~\ref{fig:NER-Test}, 
+we can see that there is a significant imbalance in the dataset, with only about 5.5\% and 3.3\% of the tokens being NE. The distribution of
+the NE's are fairly balanced beween the different types of entities. 
+
+\begin{figure}[H]
   \includegraphics[width=\columnwidth]{NER-Train.png}
-  \caption{Distribution of data}
-  \label{fig:experiments}
+  \caption{Distribution of data for \textit{BG}, \textit{BC}, and \textit{AA} combined, used for one of the training folds.}
+  \label{fig:NER-Train}
 \end{figure}
 
-\section{\textcolor{red}{Notes for myself}}
-Distribution of data
-First tokenize on full words, but then used BERT tokenizer with Multilanguage.
-Capitalization is notable.
-Bert split words embedding not great, no benefit from using it.
-Combining back to words is good since we cluster on word level
-Cluster 1 stage, then 2 stage, and then NN
-Fpan F1 not a good idea to even make even if it's the main metric, because our model already does not perform well.
-NE vs Non NE is really good.
+\begin{figure}[H]
+  \includegraphics[width=\columnwidth]{NER-Test.png}
+  \caption{Distribution of data for \textit{EP}, used for one of the testing folds.}
+  \label{fig:NER-Test}
+\end{figure}
 
-\section{Embeddings}
-Our initial approach was to vectorize tokens using basic Word2Vec. However, this produced unacceptably low results — the model wasn’t able to separate entities from non-entities in a meaningful way. So we moved on to a more powerful method: using contextual word embeddings from a pretrained BERT model, specifically bert-base-multilingual-cased.
-This model was trained on a large corpus of multilingual text, including Latin, and is capable of generating high-quality embeddings for words in context. We used the Hugging Face Transformers library to load the model and generate embeddings for our tokens. We extacted the embeddings from the last hidden layer of the model. Since BERT works on subword level, we combined the embeddings of the subwords that make up a token by averaging subwords embeddings. This approach has been shown to work well in practice and allows us to obtain a single embedding for each token. We discusse the options of using subwords embeddings for clustering and switching to the word level later on, but this would led to unnecessary complications of the pipeline, for example, by introducing the necessaty of handling scenarios when embeddings of one word end up in different clusters.
+\section{Methodology}
 
-\section{Clustering}
-Once we had the word level embeddings, we applied Kmeans clustering to automatically group the tokens into clusters. Kmeans was the most straightforward choice for the task. One of the challenges we faced was the choice of K - number of clusters. We tried several methods to determine the optimal number of clusters, including the elbow method and silhouette score. The elbow method suggested that big values of K are better, up to the point that number of clusters was close to the number of tokens. Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. So we boiled down the problem to the simplest approach: trial and error. We end up with K=!!!INSERT K!!!
-  We used the KMeans implementation from the scikit-learn library, which provides a simple and efficient way to perform KMeans clustering.
-After clustering we named each cluster by taking the most frequent token in the cluster. We had a short discussion on whether this makes the model semi-supervised, but concluded that it doesn't: the label data is only used after clustering, and doesn't influence how the clusters are formed.
-Then we evaluated the clusters as a baseline for our model. We used the F1 score to measure the perfomance. \textcolor{red}{F1 = !!!INSERT F1!!1}
+Once we had the dataset split into training and testing files, we started with tokenizing the words, and finding a solutions on how to
+handle the words, embeddings, and labels, without having supervision over the original labels that we were given. Afterwards we have decided on
+multiple approaches in training a model, namely Clustering, and a Neural Network.
 
-\section{NN}
-Next we reconstructed the model using a neural network.
-We used a lightweight neural network consisting of two linear layers with GELU activation and LayerNorm, mapping contextual BERT embeddings to entity class logits. The network is trained using pseudo-labels derived from clustering, which makes inherently supervised neural network unsupervised.
-We used Pytorch to implement and train the model. More than 30 !!!!! epochs didn't seem to improve the results, so we stopped at 30.
+\subsection{Embeddings}
+
+Our initial approach was to vectorize tokens using a basic \texttt{Word2Vec} method from the \texttt{Gensim} library. However, this produced 
+unacceptably low results with clustering — the model wasn’t able to separate entities from non-entities in a meaningful way. So we moved on to
+a more powerful method: using contextual word embeddings from a \texttt{pretrained Bidirectional encoder representations from transformers (BERT)} model,
+specifically \texttt{bert-base-multilingual-cased}. This model was trained on a large corpus of multilingual text, including Latin, and is
+capable of generating high-quality embeddings for words in context.
+
+We used the \texttt{Hugging Face Transformers} library to load the model and generate embeddings for our tokens. We extacted the embeddings
+from the last hidden layer of the model. Since \texttt{BERT} works on subword level, we combined the embeddings of the subwords that make up
+a token by averaging subwords embeddings. This approach has been shown to work well in practice and allows us to obtain a single embedding for
+each token. We discusse the options of using subwords embeddings for clustering and switching to the word level later on, but this led to
+unnecessary complications of the pipeline, for example, by introducing the necessaty of handling scenarios when embeddings of one word end up
+in different clusters.
+
+\subsection{Clustering}
+
+Once we had the word level embeddings, we applied \texttt{KMeans Clustering} to automatically group the tokens into clusters. \texttt{Kmeans}
+was the most straightforward choice for the task. One of the challenges we faced was the choice of \texttt{K} - number of clusters. We tried
+several methods to determine the optimal number of clusters, including the \textit{Elbow Method} and \textit{Silhouette Score}. 
+The elbow method suggested that big values of \texttt{K} are better, up to the point that number of clusters was close to the number of tokens.
+Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. So we boiled down the
+problem to the simplest approach: trial and error. We ended up with \textcolor{red}{!!!INSERT K!!!} clusters.
+
+We used the KMeans implementation from the \texttt{scikit-learn} library, which provides a simple and efficient way to perform KMeans clustering.
+After clustering we named each cluster by taking the most frequent token in the cluster. We had a short discussion on whether this makes the model
+semi-supervised, but concluded that it doesn't: the label data is only used after clustering, and doesn't influence how the clusters are formed.
+Then we evaluated the clusters as a baseline for our model. We used the F1 score to measure the perfomance, and got a score of
+\textcolor{red}{!!!INSERT F1!!!}.
+
+\subsection{Neural Network}
+
+Next we reconstructed the model using a \texttt{Neural Network} (NN). We used a lightweight NN consisting of two linear layers with
+\texttt{GELU Activation} and \texttt{LayerNorm}, mapping contextual BERT embeddings to entity class logits. The network is trained using
+pseudo-labels derived from the initial clustering, which makes the inherently supervised neural network \textbf{unsupervised}.
+
+We used \texttt{Pytorch} to implement and train the model. The choice of the number of epochs was based on the rate of change of the F1 score,
+which we observed in most cases to not significantly increase after 10 epochs, and plateau after 30 epochs. As shown in Figure~\ref{fig:F1-Epochs},
+
+\begin{figure}[H]
+  \includegraphics[width=\columnwidth]{F1-Epochs.png}
+  \caption{Rate of change of F1 score with increasing number of epochs.}
+  \label{fig:F1-Epochs}
+\end{figure}
+
+As such, we stopped at 30 epochs.
 
 \section{Results}
-.
+Notes: Binary Clustering, Multi-Class Clustering, and Neural Network.
+
+Our results:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lc}
+    \hline
+    \textbf{Command} & \textbf{Output} \\
+    \hline
+    \verb|{\"a}|     & {\"a}           \\
+    \verb|{\^e}|     & {\^e}           \\
+    \verb|{\`i}|     & {\`i}           \\
+    \verb|{\.I}|     & {\.I}           \\
+    \verb|{\o}|      & {\o}            \\
+    \verb|{\'u}|     & {\'u}           \\
+    \verb|{\aa}|     & {\aa}           \\\hline
+  \end{tabular}
+  \begin{tabular}{lc}
+    \hline
+    \textbf{Command} & \textbf{Output} \\
+    \hline
+    \verb|{\c c}|    & {\c c}          \\
+    \verb|{\u g}|    & {\u g}          \\
+    \verb|{\l}|      & {\l}            \\
+    \verb|{\~n}|     & {\~n}           \\
+    \verb|{\H o}|    & {\H o}          \\
+    \verb|{\v r}|    & {\v r}          \\
+    \verb|{\ss}|     & {\ss}           \\
+    \hline
+  \end{tabular}
+  \caption{Example commands for accented characters, to be used in, \emph{e.g.}, Bib\TeX{} entries.}
+  \label{tab:accents}
+\end{table}
 
 \section{Future Work}
-.
 
+As our results are not very promising, it gives us a glimpse into the mysteries of the Latin language, and the challenges of NER within it.
+We plan to explore some aspects of this field as there is a lot of room for improvement, and a lot more to discover.
+
+To start, we would like to explore having a much larger dataset to work with, and observe how results improve with the proportion of data.
+Next, we would like to explore different capitalizations of the language, and observe how results change, as we
+suspect that the capitalization played a significant role in the performance of the model.
+Finally, considering an ensemble method of different models may prove to be the most effective approach, as it has been observed so far,
+and we would like to explore the limits of this approach and benefits of it.
+
+\section*{Limitations}
+
+Due to the size of the dataset and the complexity of the task, we were not able to train a more capable model.
+A similarly comparable evaluation of NER using an unsupervised model within the English language has been shown to achieve much better results,
+indicating that the size and distribution of the dataset is a significant factor in the performance of the model, even more so than the choice of model.
+
+Having a discrepancy between the original dataset wordcount and what we have received, based ont the original splits, having to
+manually split the dataset has made our work substantially longer than expected, as we had to manually separate the dataset up into
+new files. Using the help of the original source of the dataset, we managed to find and split it appropriately, at a significant cost of time.
+
+Due to the limitations of time, we were not able to explore more methods of approach and tinker extensively with the hyperparameters of the model.
+
+\bibliography{custom}
+
+\begin{comment}
 \newpage
 \section*{.}
 \newpage
@@ -285,6 +382,7 @@ A possessive citation can be made with the command \verb|\citeposs|.
 This is not a standard natbib command, so it is generally not compatible
 with other style files.
 
+
 \subsection{References}
 
 \nocite{Ando2005,andrew2007scalable,rasooli-tetrault-2015}
@@ -334,6 +432,7 @@ Please ensure that Bib\TeX{} records contain DOIs or URLs when possible, and for
 Use the \verb|doi| field for DOIs and the \verb|url| field for URLs.
 If a Bib\TeX{} entry has a URL or DOI field, the paper title in the references section will appear as a hyperlink to the paper, using the hyperref \LaTeX{} package.
 
+
 \section*{Limitations}
 
 Since December 2023, a "Limitations" section has been required for all papers submitted to ACL Rolling Review (ARR). This section should be placed at the end of the paper, before the references. The "Limitations" section (along with, optionally, a section for ethical considerations) may be up to one page and will not count toward the final page limit. Note that these files may be used by venues that do not rely on ARR so it is recommended to verify the requirement of a "Limitations" section and other criteria with the venue in question.
@@ -370,5 +469,6 @@ Additional elements were taken from the formatting instructions of the \emph{Int
 \label{sec:appendix}
 
 This is an appendix.
+\end{comment}
 
 \end{document}
