@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.7)  9 MAY 2025 18:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.7)  14 MAY 2025 19:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -268,43 +268,50 @@ Package graphics Info: Driver file: pdftex.def on input line 106.
 \Gin@req@width=\dimen169
 ) (C:\Program Files\MiKTeX\tex/latex/comment\comment.sty
 \CommentStream=\write3
- Excluding comment 'comment') Excluding 'comment' comment. (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+ Excluding comment 'comment') (C:\Program Files\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count302
+\float@exts=\toks25
+\float@box=\box54
+\@float@everytoks=\toks26
+\@floatcapt=\box55
+) (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count302
+\l__color_backend_stack_int=\count303
 ) (acl_latex.aux)
 \openout1 = `acl_latex.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
  (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count303
+\scratchcounter=\count304
 \scratchdimen=\dimen170
-\scratchbox=\box54
-\nofMPsegments=\count304
-\nofMParguments=\count305
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count306
+\scratchbox=\box56
+\nofMPsegments=\count305
+\nofMParguments=\count306
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count307
 \MPscratchDim=\dimen171
-\MPnumerator=\count307
-\makeMPintoPDFobject=\count308
-\everyMPtoPDFconversion=\toks26
+\MPnumerator=\count308
+\makeMPintoPDFobject=\count309
+\everyMPtoPDFconversion=\toks28
 ) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -346,27 +353,28 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 129.
+Package hyperref Info: Link coloring ON on input line 52.
 (acl_latex.out) (acl_latex.out)
 \@outlinefile=\write4
 \openout4 = `acl_latex.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 129.
-Package microtype Info: Applying patch `item' on input line 129.
-Package microtype Info: Applying patch `toc' on input line 129.
-Package microtype Info: Applying patch `eqnum' on input line 129.
-Package microtype Info: Applying patch `footnote' on input line 129.
-Package microtype Info: Applying patch `verbatim' on input line 129.
-LaTeX Info: Redefining \microtypesetup on input line 129.
+LaTeX Info: Redefining \microtypecontext on input line 52.
+Package microtype Info: Applying patch `item' on input line 52.
+Package microtype Info: Applying patch `toc' on input line 52.
+Package microtype Info: Applying patch `eqnum' on input line 52.
+Package microtype Info: Applying patch `footnote' on input line 52.
+Package microtype Info: Applying patch `verbatim' on input line 52.
+LaTeX Info: Redefining \microtypesetup on input line 52.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 129.
+LaTeX Info: Redefining \showhyphens on input line 52.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -378,138 +386,105 @@ Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbat
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 130.
+(Font)              <12> on input line 53.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 130.
+(Font)              <8> on input line 53.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 130.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 130.
+(Font)              <6> on input line 53.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 53.
  (C:\Program Files\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 130.
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 53.
  (C:\Users\zaelux\AppData\Local\MiKTeX\tex/latex/local/inconsolata/tex\t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 12.0pt on input line 130.
+(Font)              scaled to size 12.0pt on input line 53.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- Excluding 'comment' comment.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 147.
+(Font)              <10.95> on input line 68.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 147.
+(Font)              <9> on input line 68.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 147.
+(Font)              <5> on input line 68.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 147.
+(Font)              scaled to size 9.0pt on input line 68.
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
-[][][][][]$\T1/zi4/m/n/9 http : / / acl-[]org . github . io / ACLPUB / formatting .
- []
-
-Excluding 'comment' comment.
-LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 163.
-
-
-
-Underfull \hbox (badness 1132) in paragraph at lines 203--204
-[]\T1/ptm/m/n/10.95 (+20) Set the ti-tle and au-thor us-ing [][]\T1/zi4/m/n/10.95 \title []\T1/ptm/m/n/10.95 (+20) and
- []
-
-LaTeX Info: Symbol \textasciigrave not provided by
-            font family zi4 in TS1 encoding.
-            Default family used instead on input line 232.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: TS1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 235.
-(C:\Users\zaelux\AppData\Local\MiKTeX\tex/latex/local/inconsolata/tex\ts1zi4.fd
-File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
-)
-LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 235.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `zi4' (encoding: TS1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-Underfull \hbox (badness 2547) in paragraph at lines 258--265
-\T1/ptm/m/n/10.95 (+20) an ap-pro-pri-ate point within the text. The
+Underfull \hbox (badness 10000) in paragraph at lines 68--68
+[][][]\T1/ptm/m/n/9 (+20) Original pa-per: [][]$\T1/zi4/m/n/9 https : / / aclanthology . org /
  []
 
 
-Underfull \hbox (badness 1831) in paragraph at lines 258--265
-\T1/ptm/m/n/10.95 (+20) ure. You must in-clude it ex-plic-itly in the
- []
 
+<NER-Train.png, id=41, 952.30782pt x 350.81062pt>
+File: NER-Train.png Graphic file (type png)
+<use NER-Train.png>
+Package pdftex.def Info: NER-Train.png  used on input line 87.
+(pdftex.def)             Requested size: 219.08614pt x 80.70615pt.
+<NER-Test.png, id=43, 953.06062pt x 347.79938pt>
+File: NER-Test.png Graphic file (type png)
+<use NER-Test.png>
+Package pdftex.def Info: NER-Test.png  used on input line 93.
+(pdftex.def)             Requested size: 219.08614pt x 79.9497pt.
 
 
 [1{C:/Users/zaelux/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-0.enc}
 
 
 
-]
-<example-image-golden.pdf, id=81, 324.82053pt x 200.75pt>
-File: example-image-golden.pdf Graphic file (type pdf)
-<use example-image-golden.pdf>
-Package pdftex.def Info: example-image-golden.pdf  used on input line 267.
-(pdftex.def)             Requested size: 219.08614pt x 135.40543pt.
+ <./NER-Train.png> <./NER-Test.png>]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 270.
-<example-image-a.pdf, id=82, 321.2pt x 240.9pt>
-File: example-image-a.pdf Graphic file (type pdf)
-<use example-image-a.pdf>
-Package pdftex.def Info: example-image-a.pdf  used on input line 275.
-(pdftex.def)             Requested size: 218.51521pt x 163.89069pt.
-<example-image-b.pdf, id=83, 321.2pt x 240.9pt>
-File: example-image-b.pdf Graphic file (type pdf)
-<use example-image-b.pdf>
-Package pdftex.def Info: example-image-b.pdf  used on input line 276.
-(pdftex.def)             Requested size: 218.51521pt x 163.89069pt.
+(Font)              scaled to size 10.95pt on input line 106.
+
+Underfull \hbox (badness 2735) in paragraph at lines 106--111
+\T1/zi4/m/n/10.95 Bidirectional encoder representations
+ []
+
+
+
+<F1-Epochs.png, id=61, 426.09187pt x 317.68687pt>
+File: F1-Epochs.png Graphic file (type png)
+<use F1-Epochs.png>
+Package pdftex.def Info: F1-Epochs.png  used on input line 144.
+(pdftex.def)             Requested size: 219.08614pt x 163.35121pt.
+
+
+[2 <./F1-Epochs.png>]
+Underfull \vbox (badness 2875) has occurred while \output is active []
 
 
 
 
-[2{C:/Program Files/MiKTeX/fonts/enc/dvips/inconsolata/i4-ts1.enc} <C:/Program Files/MiKTeX/tex/latex/mwe/example-image-golden.pdf>]
+Underfull \hbox (badness 1057) in paragraph at lines 228--231
+[]\T1/ptm/m/n/10.95 (+20) Having a dis-crep-ancy be-tween the orig-i-nal
+ []
 
-(acl_latex.bbl
+(acl_latex.bbl) Excluding 'comment' comment.
 
-[3 <C:/Program Files/MiKTeX/tex/latex/mwe/example-image-a.pdf> <C:/Program Files/MiKTeX/tex/latex/mwe/example-image-b.pdf>])
-
-
-
-[4
-
-] (acl_latex.aux)
+[3] (acl_latex.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
 Package rerunfilecheck Info: File `acl_latex.out' has not changed.
-(rerunfilecheck)             Checksum: 8219CE2FD156CB12C35817D4A4A2FF17;1540.
+(rerunfilecheck)             Checksum: 7A8943FC69B9C3475E7372A0F41FE9C3;802.
  ) 
 Here is how much of TeX's memory you used:
- 14258 strings out of 469941
- 228275 string characters out of 5479495
- 670222 words of memory out of 5000000
- 40612 multiletter control sequences out of 15000+600000
- 676266 words of font info for 230 fonts, out of 8000000 for 9000
+ 14226 strings out of 469941
+ 227102 string characters out of 5479495
+ 669326 words of memory out of 5000000
+ 40587 multiletter control sequences out of 15000+600000
+ 675637 words of font info for 232 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,10n,93p,1044b,587s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\zaelux\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt1095.pk><C:/Program Files/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmss17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on acl_latex.pdf (4 pages, 171212 bytes).
+ 90i,10n,93p,1044b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Program Files/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on acl_latex.pdf (3 pages, 240666 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
- 34 named destinations out of 1000 (max. 500000)
- 53896 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 107 PDF objects out of 1000 (max. 8388607)
+ 21 named destinations out of 1000 (max. 500000)
+ 51792 words of extra memory for PDF output out of 61914 (max. 10000000)
 

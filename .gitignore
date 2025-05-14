@@ -15,3 +15,6 @@ Scripts/*
 # Due to ignoring scripts, ignoring requirements.txt as well
 requirements.txt
 .venv
+
+# Ignore the acl_latex.log
+Writing/latex/acl_latex.log
