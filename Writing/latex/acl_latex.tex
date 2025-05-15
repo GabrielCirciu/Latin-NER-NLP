@@ -55,7 +55,7 @@
 Tackling the challenges of Natural Language Processing (NLP) in Latin using an unsupervied model has lead to the observation that certain tokenizers 
 such as BERT are better suited for such tasks and that the choice of the model itself plays a significant role in the final results.
 Clustering has proved to be the most straight-forward method to group entities together but a more intricate pipeline lead to a significantly 
-better result, achieving an averaged weighted F1 score of 0,51.
+better result, achieving an averaged macro F1 score of 0,51.
 \end{abstract}
 
 \section{Introduction}
@@ -80,8 +80,7 @@ however, parts of Caesar's \textit{De Bello Civili (BC)} were also annotated wit
 
 To have an initial understanding of the expectations of our models, we must understand the distribution of the dataset, namely the amount of
 \textit{Named entities (NE)} and \textit{Non-Named entities (Non NE)} in the dataset. As shown in Figure~\ref{fig:NER-Train} and Figure~\ref{fig:NER-Test}, 
-we can see that there is a significant imbalance in the dataset, with only about 5.5\% and 3.3\% of the tokens being NE. The distribution of
-the NE's are fairly balanced beween the different types of entities. 
+we can see that there is a significant imbalance in the dataset, with only about 5.5\% and 3.3\% of the tokens being NE.
 
 \begin{figure}[H]
   \includegraphics[width=\columnwidth]{NER-Train.png}
@@ -138,22 +137,20 @@ Next we reconstructed the model using a \texttt{Neural Network} (NN). We used a 
 \texttt{GELU Activation} and \texttt{LayerNorm}, mapping contextual BERT embeddings to entity class logits. The network is trained using
 pseudo-labels derived from the initial clustering, which makes the inherently supervised neural network \textbf{unsupervised}.
 
-We used \texttt{Pytorch} to implement and train the model. The choice of the number of epochs was based on the rate of change of the F1 score,
-which we observed in most cases to not significantly increase after 10 epochs, and plateau after 30 epochs. As shown in Figure~\ref{fig:F1-Epochs},
-
 \begin{figure}[H]
   \includegraphics[width=\columnwidth]{F1-Epochs.png}
-  \caption{Rate of change of F1 score with increasing number of epochs.}
+  \caption{Rate of change of weighted average F1 score with increasing number of epochs.}
   \label{fig:F1-Epochs}
 \end{figure}
 
-As such, we stopped at 30 epochs.
+We used \texttt{Pytorch} to implement and train the model. The choice of the number of epochs was based on the rate of change of the F1 score,
+which we observed in most cases to not significantly increase after 10 epochs, and plateau after 30 epochs. As shown in Figure~\ref{fig:F1-Epochs},
+which is where we stopped.
 
 \section{Results}
 We have stayed true to the original paper and used the same train and test sets, indicated in Table~\ref{tab:Train-Test-Sets}, 
 and have used the same evaluation metrics, indicated in Table~\ref{tab:Classification-Report}. For the sake of consistency, we have included
-Caesar's \textit{De Bello Civili} in the test set, and all 8 books of Caesar's \textit{De Bello Gallico} in the training set,
-even though it was not part of the original report.
+\textit{BC} in the test set, and all 8 books of \textit{BG} in the training set, even though it was not part of the original report.
 
 \begin{table}[H]
   \centering
@@ -176,7 +173,8 @@ To have a detailed overview of the results, we have included a classification re
 in Table~\ref{tab:Classification-Report}, which includes the precision, recall, F1 score, and weighted average F1 score for each fold and each model,
 namely Binary Clustering, Multi-Class Clustering, and Neural Network. While we understand that the standard score for NER is the
 Span F1 score, we have used the normal F1 score for the sake of consistency with the original paper, as there is no mention of specificity of the type
-of F1 score used, and we also understand that on a technical level we could not use the Span F1 score, as \textcolor{red}{!!!INSERT REASON!!!}.
+of F1 score used, and we also understand that on a technical level we could not use the Span F1 score, as our model by design provides lower
+performance than supervised models, so it was not in our final goal to achieve high scores measured by a more strict metric like Span F1.
 
 \begin{table}[H]
   \centering
@@ -207,7 +205,16 @@ of F1 score used, and we also understand that on a technical level we could not 
   \label{tab:Classification-Report}
 \end{table}
 
-These results suggest that \textcolor{red}{!!!INSERT CONCLUSION!!!}.
+These results suggest that binary clustering performs extraordinarily well, highly exceeding our expectations, however once we dive deeper
+into being able to distinguish between different named entitities, the results also dive quite deep into the lower end of resulting scores.
+Additionally, the Neural Network does not seem to provide substainal, if any at all, improvement over the multi-class clustering, however,
+we must note that the purpose of the Neural Network is to generalise on unseen data, and not to specifically outperform the multi-class clustering.
+
+There are a few key points worthy of mention, that may not be initially obvious.
+Fold 3 represents the In Domain datasets, which have higher chance of performing better, as per our observation, the training and testing
+datasets mention the same entities more often, resulting in a better fit. Finally, some entities are better detected, which the results table
+also does not show. The entities that we found to be better detected, were GEO-B, GRP-B, PRS-B, with F1 scores on average of around 0.6 to 0.8
+for each entity.
 
 \section{Future Work}
 
