@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.7)  15 MAY 2025 19:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.7)  15 MAY 2025 21:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -420,12 +420,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--68
 
 
 
-<NER-Train.png, id=41, 680.5425pt x 266.49562pt>
+<NER-Train.png, id=45, 680.5425pt x 266.49562pt>
 File: NER-Train.png Graphic file (type png)
 <use NER-Train.png>
 Package pdftex.def Info: NER-Train.png  used on input line 86.
 (pdftex.def)             Requested size: 219.08614pt x 85.7927pt.
-<NER-Test.png, id=43, 680.5425pt x 264.99pt>
+<NER-Test.png, id=47, 680.5425pt x 264.99pt>
 File: NER-Test.png Graphic file (type png)
 <use NER-Test.png>
 Package pdftex.def Info: NER-Test.png  used on input line 92.
@@ -449,7 +449,7 @@ Underfull \hbox (badness 2735) in paragraph at lines 105--110
 
 
 
-<F1-Epochs.png, id=60, 426.09187pt x 317.68687pt>
+<F1-Epochs.png, id=64, 426.09187pt x 317.68687pt>
 File: F1-Epochs.png Graphic file (type png)
 <use F1-Epochs.png>
 Package pdftex.def Info: F1-Epochs.png  used on input line 141.
@@ -461,36 +461,42 @@ Package pdftex.def Info: F1-Epochs.png  used on input line 141.
 
 
 [3]
-Underfull \hbox (badness 1057) in paragraph at lines 236--239
+Underfull \hbox (badness 1057) in paragraph at lines 237--240
 []\T1/ptm/m/n/10.95 (+20) Having a dis-crep-ancy be-tween the orig-i-nal
  []
 
-(acl_latex.bbl) Excluding 'comment' comment.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 251.
+(C:\Program Files\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 261--261
+[][][]\T1/ptm/m/n/9 (+20) Github Repos-i-tory: [][]$\T1/zi4/m/n/9 https : / / github . com /
+ []
 
+(acl_latex.bbl
 
+) Excluding 'comment' comment.
 
-[4
-
-] (acl_latex.aux)
+[4] (acl_latex.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
 Package rerunfilecheck Info: File `acl_latex.out' has not changed.
-(rerunfilecheck)             Checksum: 7A8943FC69B9C3475E7372A0F41FE9C3;802.
+(rerunfilecheck)             Checksum: 2FBE6C028F1706E0CBBF1CB4CCF961CD;886.
  ) 
 Here is how much of TeX's memory you used:
- 14248 strings out of 469941
- 227294 string characters out of 5479495
- 669343 words of memory out of 5000000
- 40587 multiletter control sequences out of 15000+600000
- 676737 words of font info for 246 fonts, out of 8000000 for 9000
+ 14283 strings out of 469941
+ 227830 string characters out of 5479495
+ 668375 words of memory out of 5000000
+ 40615 multiletter control sequences out of 15000+600000
+ 676787 words of font info for 247 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,10n,93p,1044b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on acl_latex.pdf (4 pages, 164445 bytes).
+Output written on acl_latex.pdf (4 pages, 167212 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 51792 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 119 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
+ 53848 words of extra memory for PDF output out of 61914 (max. 10000000)
 

@@ -145,12 +145,12 @@ pseudo-labels derived from the initial clustering, which makes the inherently su
 
 We used \texttt{Pytorch} to implement and train the model. The choice of the number of epochs was based on the rate of change of the F1 score,
 which we observed in most cases to not significantly increase after 10 epochs, and plateau after 30 epochs. As shown in Figure~\ref{fig:F1-Epochs},
-which is where we stopped.
+which is what we chose.
 
 \section{Results}
 We have stayed true to the original paper and used the same train and test sets, indicated in Table~\ref{tab:Train-Test-Sets}, 
 and have used the same evaluation metrics, indicated in Table~\ref{tab:Classification-Report}. For the sake of consistency, we have included
-\textit{BC} in the test set, and all 8 books of \textit{BG} in the training set, even though it was not part of the original report.
+\textit{BC} in the train set, and all 8 books of \textit{BG} in the training set, even though it was not part of the original report.
 
 \begin{table}[H]
   \centering
@@ -227,6 +227,7 @@ suspect that the capitalization played a significant role in the performance of 
 Finally, considering an ensemble method of different models may prove to be the most effective approach, as it has been observed so far,
 and we would like to explore the limits of this approach and benefits of it.
 
+\newpage
 \section*{Limitations}
 
 Due to the size of the dataset and the complexity of the task, we were not able to train a more capable model.
@@ -238,6 +239,28 @@ manually split the dataset has made our work substantially longer than expected,
 new files. Using the help of the original source of the dataset, we managed to find and split it appropriately, at a significant cost of time.
 
 Due to the limitations of time, we were not able to explore more methods of approach and tinker extensively with the hyperparameters of the model.
+
+\appendix
+
+\section{Appendix}
+\label{sec:appendix}
+
+Group contributions are as follows:
+
+\begin{itemize}
+  \item Mykyta: Initial EDA to identify distribution of NE's and non NE's, observations on inconsistencies in the dataset, implementation of binary pipeline and of the Neural Network.
+  \item Wenzel: Implementation of the Multi-Class Clustering method, multi-class classification, training the models, and reporting the results.
+  \item Gabriel: Collaborating with previous papers authors, obtaining the dataset, EDA, splitting up dataset into train and test sets, implementing initial Word2Vec and Tokenization methods.
+\end{itemize}
+
+We feel these contributions are fair and equal, and reflect the work done by each of us.
+
+We have used chatbots, in the form of spellcheckers after writing our paper to make sure we are formulating our sentences in an appropriate manner,
+and autocompletion in our code to speed up the development process.
+
+All of our code is available on GitHub\footnote{Github Repository: \url{https://github.com/GabrielCirciu/Latin-NER-NLP}}. As the dataset shared
+was not disclosed to be public, it is left out of the repository.
+
 
 \bibliography{custom}
 
