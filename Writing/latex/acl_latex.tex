@@ -55,7 +55,7 @@
 Tackling the challenges of Natural Language Processing (NLP) in Latin using an unsupervied model has lead to the observation that certain tokenizers 
 such as BERT are better suited for such tasks and that the choice of the model itself plays a significant role in the final results.
 Clustering has proved to be the most straight-forward method to group entities together but a more intricate pipeline lead to a significantly 
-better result, achieving an F1 score of \textcolor{red}{!!!INSERT F1!!!}.
+better result, achieving an averaged weighted F1 score of 0,51.
 \end{abstract}
 
 \section{Introduction}
@@ -123,13 +123,14 @@ was the most straightforward choice for the task. One of the challenges we faced
 several methods to determine the optimal number of clusters, including the \textit{Elbow Method} and \textit{Silhouette Score}. 
 The elbow method suggested that big values of \texttt{K} are better, up to the point that number of clusters was close to the number of tokens.
 Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. So we boiled down the
-problem to the simplest approach: trial and error. We ended up with \textcolor{red}{!!!INSERT K!!!} clusters.
+problem to the simplest approach: trial and error.
+First we started with a binary classification, where we had two clusters: one for NE and one for Non NE. For this we settled on a value of \texttt{K} = 7.500 
+where we then passed the clusters classified as NE to another kmeans clustering, where we had 207 clusters for the different types of NE.
 
 We used the KMeans implementation from the \texttt{scikit-learn} library, which provides a simple and efficient way to perform KMeans clustering.
 After clustering we named each cluster by taking the most frequent token in the cluster. We had a short discussion on whether this makes the model
 semi-supervised, but concluded that it doesn't: the label data is only used after clustering, and doesn't influence how the clusters are formed.
-Then we evaluated the clusters as a baseline for our model. We used the F1 score to measure the perfomance, and got a score of
-\textcolor{red}{!!!INSERT F1!!!}.
+Then we evaluated the clusters as a baseline for our model. We used the macro F1 score to measure the perfomance, and got a score of 0,43.
 
 \subsection{Neural Network}
 
@@ -181,25 +182,25 @@ of F1 score used, and we also understand that on a technical level we could not 
   \centering
   \begin{tabular}{|l|c|c|c|c|}
   \hline
-  \textbf{} & \textbf{Prec.} & \textbf{Rec.} & \textbf{W. F1} & \textbf{M. F1} \\
+  \textbf{} & \textbf{Prec.} & \textbf{Rec.} & \textbf{M. F1} & \textbf{W. F1} \\
   \hline
   \multicolumn{5}{|c|}{\textit{Binary Clustering}} \\
   \hline
-  Fold 1   & 0.10 & 0.10 & 0.10 & 0.10 \\
-  Fold 2   & 0.10 & 0.10 & 0.10 & 0.10 \\
-  Fold 3   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 1   & 0.90 & 0.91 & 0.91 & 0.99 \\
+  Fold 2   & 0.86 & 0.78 & 0.82 & 0.98 \\
+  Fold 3   & 0.98 & 0.98 & 0.98 & 1.00 \\
   \hline
   \multicolumn{5}{|c|}{\textit{Multi-Class Clustering}} \\
   \hline
-  Fold 1   & 0.10 & 0.10 & 0.10 & 0.10 \\
-  Fold 2   & 0.10 & 0.10 & 0.10 & 0.10 \\
-  Fold 3   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 1   & 0.41 & 0.43 & 0.41 & 0.98 \\
+  Fold 2   & 0.38 & 0.34 & 0.35 & 0.97 \\
+  Fold 3   & 0.56 & 0.53 & 0.54 & 0.99 \\
   \hline
   \multicolumn{5}{|c|}{\textit{Neural Network}} \\
   \hline
-  Fold 1   & 0.10 & 0.10 & 0.10 & 0.10 \\
-  Fold 2   & 0.10 & 0.10 & 0.10 & 0.10 \\
-  Fold 3   & 0.10 & 0.10 & 0.10 & 0.10 \\
+  Fold 1   & 0.33 & 0.52 & 0.39 & 0.96 \\
+  Fold 2   & 0.29 & 0.42 & 0.32 & 0.95 \\
+  Fold 3   & 0.48 & 0.60 & 0.53 & 0.97 \\
   \hline
   \end{tabular}
   \caption{Classification report}
