@@ -52,17 +52,25 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Tackling the challenges of Natural Language Processing (NLP) in Latin using an unsupervied model has lead to the observation that certain tokenizers 
-such as BERT are better suited for such tasks and that the choice of the model itself plays a significant role in the final results.
-Clustering has proved to be the most straight-forward method to group entities together but a more intricate pipeline lead to a significantly 
-better result, achieving an averaged macro F1 score of 0,51.
+Tackling the challenges of Named Entity Recognition (NER) in Latin using an unsupervied model has lead to the observation that certain methods of
+tokenization and models such as BERT are better suited for these tasks and that the an ensemble of models being used plays a significant
+role in the final results.
+Clustering has proved to be the most straight-forward model to group entities together but a more intricate pipeline lead to a significantly 
+better result, achieving an averaged macro F1 score of 0.90 for the binary clustering, 0.43 for the multi-class clustering, 
+and 0.41 for the neural network.
 \end{abstract}
 
 \section{Introduction}
 
 As international students, the probability of sharing a common language outside of English is not high, however, during our studies we came to the 
-realization that some of usshare knowledge in one such language, Latin. Albeit we are nowhere near fluent, it has sparked curiosity to work with it.
-We chose to head in the direction of our shared curiosity of Latin, and to poke at it within the Named Entity Recognition (NER) sphere.
+realization that some of us share knowledge in one such language, Latin. Due to Latin being a low resource language, but still widely used in fields
+such as medicine and theology, it is a perfect language to use as a foundation for developing NER methods for less resourced languages, and a
+stepping stone towards even less resourced languages, such as Old Norse.
+
+As there is no past research on unsupervised NER for Latin, only on other low resource languages, such as the paper titled
+\textit{Zero-Resource Cross-Lingual Named Entity Recognition}\footnote{Original paper: \url{https://arxiv.org/abs/1911.09812}}
+\cite{bari2019zeroresourcecrosslingualnamedentity}, we would like to contribute to the field of Natural Language Processing (NLP) by
+developing unsupervised NER methods that can be applied not only to Latin, but to other low resource languages as well in the future.
 
 As such we chose to build upon a past research, titled 
 \textit{Challenges and Solutions for Latin Named Entity Recognition}\footnote{Original paper: \url{https://aclanthology.org/W16-4012/}}
@@ -72,11 +80,37 @@ Our dataset is based on the one used in the original paper, following the same s
 \section{Dataset}
 
 The dataset from the original paper named 3 works of literature, Caesar's \textit{De Bello Gallico (BG)}, Pliny the Younger's \textit{Epistulae (EP)},
-and Ovid's \textit{Ars Amatoria (AA)}. We have had the great fortune of receiving the full dataset in its entirety, as large text files, in IOB format.
-While all the literature was scrambled in each file, having it in the right format has made it all the more easier to process, and do some
-Exploratory Data Analysis (EDA). After thorough investigation, we have found that there is a slight inconsistency in the original paper regarding 
-the dataset, and that of which we have received. As mentioned, the entirety of \textit{BG}, and parts of \textit{EP} and \textit{AA} were annotated,
-however, parts of Caesar's \textit{De Bello Civili (BC)} were also annotated within the dataset, but left unmentioned in the original paper.
+and Ovid's \textit{Ars Amatoria (AA)}. We have received the full dataset in its entirety, as large text files, in IOB format, with tags B-GEO, B-GRP,
+B-PRS, I-GEO, I-GRP, I-PRS, O.
+While all the literature was scrambled in large combined files, we have had to separate them in different files to process in accordance to which
+literature it is. Next we have done some Exploratory Data Analysis (EDA), and after thorough investigation, we have found that there is a slight
+inconsistency in the original paper regarding the dataset, and that of which we have received. As mentioned, the entirety of \textit{BG},
+and parts of \textit{EP} and \textit{AA} were annotated, however, parts of Caesar's \textit{De Bello Civili (BC)} were also annotated within
+the dataset, but left unmentioned in the original paper. Below is a table\ref{tab:token-counts} of the token counts from the original paper
+and our investigation.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|}
+  \hline
+  \textbf{} & \textbf{Original} & \textbf{Ours} \\
+  \hline
+  EP   & 18,676 & 18,676 \\
+  \hline
+  AA   & 17,562 & 17,564 \\
+  \hline
+  BG   & 58,891 & 58,889 \\
+  \hline
+  BC   & 0 & 4,836 \\
+  \hline
+  \end{tabular}
+  \caption{Token counts from the original paper and ours}
+  \label{tab:token-counts}
+\end{table}
+
+As we can see, the token counts do closely match between the original paper and our investigation, with slight differences, likely due to
+manual splitting of the dataset, so there is a negligeble inconsistency on our end, however \textit{BC} is a outlier, which
+has a token count of 0 in the original paper, and 4,836 in our investigation, as it is not mentioned in the original paper.
 
 To have an initial understanding of the expectations of our models, we must understand the distribution of the dataset, namely the amount of
 \textit{Named entities (NE)} and \textit{Non-Named entities (Non NE)} in the dataset. As shown in Figure~\ref{fig:NER-Train} and Figure~\ref{fig:NER-Test}, 
@@ -96,23 +130,23 @@ we can see that there is a significant imbalance in the dataset, with only about
 
 \section{Methodology}
 
-Once we had the dataset split into training and testing files, we started with tokenizing the words, and finding a solutions on how to
-handle the words, embeddings, and labels, without having supervision over the original labels that we were given. Afterwards we have decided on
-multiple approaches in training a model, namely Clustering, and a Neural Network.
+Once we had the dataset split into training and testing files, we started with tokenizing the words, and researching approaches on how to
+handle the tokens, embeddings, and labels, without having supervision over the original entity information that were available.
+Afterwards we have implemented several approaches in training a model, namely Binary and Multi-Class Clustering, and a Neural Network.
 
 \subsection{Embeddings}
 
 Our initial approach was to vectorize tokens using a basic \texttt{Word2Vec} method from the \texttt{Gensim} library. However, this produced 
-unacceptably low results with clustering — the model wasn’t able to separate entities from non-entities in a meaningful way. So we moved on to
+unacceptably low results with clustering as the model was not able to separate entities from non-entities in a meaningful way. So we moved on to
 a more powerful method: using contextual word embeddings from a \texttt{pretrained Bidirectional encoder representations from transformers (BERT)} model,
 specifically \texttt{bert-base-multilingual-cased}. This model was trained on a large corpus of multilingual text, including Latin, and is
 capable of generating high-quality embeddings for words in context.
 
-We used the \texttt{Hugging Face Transformers} library to load the model and generate embeddings for our tokens. We extacted the embeddings
+We used the \texttt{Hugging Face Transformers} library to load the model and generate embeddings for our tokens. We extracted the embeddings
 from the last hidden layer of the model. Since \texttt{BERT} works on subword level, we combined the embeddings of the subwords that make up
 a token by averaging subwords embeddings. This approach has been shown to work well in practice and allows us to obtain a single embedding for
-each token. We discusse the options of using subwords embeddings for clustering and switching to the word level later on, but this led to
-unnecessary complications of the pipeline, for example, by introducing the necessaty of handling scenarios when embeddings of one word end up
+each token. We discussed the options of using subwords embeddings for clustering and switching to the word level later on, but this led to
+unnecessary complications of the pipeline, for example, by introducing the necessity of handling scenarios when embeddings of one word end up
 in different clusters.
 
 \subsection{Clustering}
@@ -123,13 +157,16 @@ several methods to determine the optimal number of clusters, including the \text
 The elbow method suggested that big values of \texttt{K} are better, up to the point that number of clusters was close to the number of tokens.
 Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. So we boiled down the
 problem to the simplest approach: trial and error.
-First we started with a binary classification, where we had two clusters: one for NE and one for Non NE. For this we settled on a value of \texttt{K} = 7.500 
-where we then passed the clusters classified as NE to another kmeans clustering, where we had 207 clusters for the different types of NE.
+First we started with a binary classification, where we had two clusters: one for NE and one for Non NE. For this we settled on a value of
+\texttt{K} = 7.500, due to the sillhoutte score having the highest value, 0.1, at around that number of clusters. Where we then passed the clusters
+classified as NE to another kmeans clustering, where we had 207 clusters for the different types of NE.
 
 We used the KMeans implementation from the \texttt{scikit-learn} library, which provides a simple and efficient way to perform KMeans clustering.
-After clustering we named each cluster by taking the most frequent token in the cluster. We had a short discussion on whether this makes the model
-semi-supervised, but concluded that it doesn't: the label data is only used after clustering, and doesn't influence how the clusters are formed.
-Then we evaluated the clusters as a baseline for our model. We used the macro F1 score to measure the perfomance, and got a score of 0,43.
+After clustering we labelled each cluster by taking the most frequent token's label in the cluster. We had a short discussion on whether 
+this makes the model semi-supervised, but concluded that it does not: the label data is only used after clustering, and does not influence
+how the clusters are formed. Then we evaluated the clusters as a baseline for our model. We used the macro F1 score to measure the perfomance of
+the multi-class clustering, and got an average macro F1 score of 0,43, and 0,90 for the binary clustering, due to Capitalization, which
+lines up with the high results from the original paper.
 
 \subsection{Neural Network}
 
@@ -149,8 +186,9 @@ which is what we chose.
 
 \section{Results}
 We have stayed true to the original paper and used the same train and test sets, indicated in Table~\ref{tab:Train-Test-Sets}, 
-and have used the same evaluation metrics, indicated in Table~\ref{tab:Classification-Report}. For the sake of consistency, we have included
-\textit{BC} in the train set, and all 8 books of \textit{BG} in the training set, even though it was not part of the original report.
+and have used the same evaluation metrics, indicated in Table~\ref{tab:Classification-Report}. Given the state of the original dataset, 
+it is unclear whether \textit{BC} was part of the original train set, so we have included it in our train set, as it was present in the original
+dataset even though not explicitly mentioned, and all 8 books of \textit{BG} were included as those are part of the mentioned train set.
 
 \begin{table}[H]
   \centering
@@ -170,11 +208,10 @@ and have used the same evaluation metrics, indicated in Table~\ref{tab:Classific
 \end{table}
 
 To have a detailed overview of the results, we have included a classification report for each fold and each model 
-in Table~\ref{tab:Classification-Report}, which includes the precision, recall, F1 score, and weighted average F1 score for each fold and each model,
-namely Binary Clustering, Multi-Class Clustering, and Neural Network. While we understand that the standard score for NER is the
-Span F1 score, we have used the normal F1 score for the sake of consistency with the original paper, as there is no mention of specificity of the type
-of F1 score used, and we also understand that on a technical level we could not use the Span F1 score, as our model by design provides lower
-performance than supervised models, so it was not in our final goal to achieve high scores measured by a more strict metric like Span F1.
+in Table~\ref{tab:Classification-Report}, which includes the precision, recall, macro F1 score, and weighted average F1 score for each fold and each model,
+namely Binary Clustering, Multi-Class Clustering, and Neural Network. While we understand that the modern standard score for NER is the
+Span F1 score, we have used the word F1 score for the sake of consistency with the original paper, as there is no mention of specificity of the type
+of F1 score used.
 
 \begin{table}[H]
   \centering
@@ -201,13 +238,14 @@ performance than supervised models, so it was not in our final goal to achieve h
   Fold 3   & 0.48 & 0.60 & 0.53 & 0.97 \\
   \hline
   \end{tabular}
-  \caption{Classification report}
+  \caption{Classification report, showing Precision, Recall, Macro F1, and Weighted F1 for each fold and each model}
   \label{tab:Classification-Report}
 \end{table}
 
-These results suggest that binary clustering performs extraordinarily well, highly exceeding our expectations, however once we dive deeper
-into being able to distinguish between different named entitities, the results also dive quite deep into the lower end of resulting scores.
-Additionally, the Neural Network does not seem to provide substainal, if any at all, improvement over the multi-class clustering, however,
+These results suggest a match in our expectations, that binary clustering performs extraordinarily well, aligning with the results of past
+research having a F1 score of 0.99 for the in-domain test set, however once we dive deeper
+into being able to distinguish between different named entitities, the results are much lower.
+Additionally, the Neural Network does not provide any improvement over the multi-class clustering, however,
 we must note that the purpose of the Neural Network is to generalise on unseen data, and not to specifically outperform the multi-class clustering.
 
 There are a few key points worthy of mention, that may not be initially obvious.
@@ -231,7 +269,7 @@ and we would like to explore the limits of this approach and benefits of it.
 \section*{Limitations}
 
 Due to the size of the dataset and the complexity of the task, we were not able to train a more capable model.
-A similarly comparable evaluation of NER using an unsupervised model within the English language has been shown to achieve much better results,
+A comparable evaluation of NER using an unsupervised model within the English language has been shown to achieve high results,
 indicating that the size and distribution of the dataset is a significant factor in the performance of the model, even more so than the choice of model.
 
 Having a discrepancy between the original dataset wordcount and what we have received, based ont the original splits, having to
