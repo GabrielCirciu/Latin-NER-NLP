@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.7)  20 MAY 2025 11:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.7)  21 MAY 2025 19:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -495,15 +495,15 @@ Package rerunfilecheck Info: File `acl_latex.out' has not changed.
 (rerunfilecheck)             Checksum: 2FBE6C028F1706E0CBBF1CB4CCF961CD;886.
  ) 
 Here is how much of TeX's memory you used:
- 14295 strings out of 469941
- 228120 string characters out of 5479495
- 671588 words of memory out of 5000000
+ 14298 strings out of 469941
+ 228147 string characters out of 5479495
+ 670562 words of memory out of 5000000
  40619 multiletter control sequences out of 15000+600000
- 677078 words of font info for 250 fonts, out of 8000000 for 9000
+ 677208 words of font info for 252 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,10n,93p,1044b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on acl_latex.pdf (5 pages, 173277 bytes).
+Output written on acl_latex.pdf (5 pages, 173143 bytes).
 PDF statistics:
  135 PDF objects out of 1000 (max. 8388607)
  28 named destinations out of 1000 (max. 500000)

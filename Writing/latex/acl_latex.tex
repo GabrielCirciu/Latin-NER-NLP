@@ -52,9 +52,9 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Tackling the challenges of Named Entity Recognition (NER) in Latin using an unsupervied model has lead to the observation that certain methods of
-tokenization and models such as BERT are better suited for these tasks and that the an ensemble of models being used plays a significant
-role in the final results.
+Tackling the challenges of Named Entity Recognition (NER) in Latin using an unsupervised approach revealed that tokenization strategies 
+and contextual embeddings from a pretrained model such as BERT are better suited for these tasks and that the an ensemble of models being 
+used plays a significant role in the final results.
 Clustering has proved to be the most straight-forward model to group entities together but a more intricate pipeline lead to a significantly 
 better result, achieving an averaged macro F1 score of 0.90 for the binary clustering, 0.43 for the multi-class clustering, 
 and 0.41 for the neural network.
@@ -80,8 +80,8 @@ Our dataset is based on the one used in the original paper, following the same s
 \section{Dataset}
 
 The dataset from the original paper named 3 works of literature, Caesar's \textit{De Bello Gallico (BG)}, Pliny the Younger's \textit{Epistulae (EP)},
-and Ovid's \textit{Ars Amatoria (AA)}. We have received the full dataset in its entirety, as large text files, in IOB format, with tags B-GEO, B-GRP,
-B-PRS, I-GEO, I-GRP, I-PRS, O.
+and Ovid's \textit{Ars Amatoria (AA)}. We have received the full dataset in its entirety, as large text files, in IOB format, with tags GEO-B, GEO-I,
+GRP-B, GRP-I, PRS-B, PRS-I, O.
 While all the literature was scrambled in large combined files, we have had to separate them in different files to process in accordance to which
 literature it is. Next we have done some Exploratory Data Analysis (EDA), and after thorough investigation, we have found that there is a slight
 inconsistency in the original paper regarding the dataset, and that of which we have received. As mentioned, the entirety of \textit{BG},
@@ -109,7 +109,7 @@ and our investigation.
 \end{table}
 
 As we can see, the token counts do closely match between the original paper and our investigation, with slight differences, likely due to
-manual splitting of the dataset, so there is a negligeble inconsistency on our end, however \textit{BC} is a outlier, which
+manual splitting of the dataset, so there is a negligible inconsistency on our end, however \textit{BC} is a outlier, which
 has a token count of 0 in the original paper, and 4,836 in our investigation, as it is not mentioned in the original paper.
 
 To have an initial understanding of the expectations of our models, we must understand the distribution of the dataset, namely the amount of
@@ -143,8 +143,8 @@ specifically \texttt{bert-base-multilingual-cased}. This model was trained on a 
 capable of generating high-quality embeddings for words in context.
 
 We used the \texttt{Hugging Face Transformers} library to load the model and generate embeddings for our tokens. We extracted the embeddings
-from the last hidden layer of the model. Since \texttt{BERT} works on subword level, we combined the embeddings of the subwords that make up
-a token by averaging subwords embeddings. This approach has been shown to work well in practice and allows us to obtain a single embedding for
+from the last hidden layer of the model. Since \texttt{BERT} works on subword level, we combined the embeddings of the subwords that compose
+a token by averaging the subwords embeddings. This approach has been shown to work well in practice and allows us to obtain a single embedding for
 each token. We discussed the options of using subwords embeddings for clustering and switching to the word level later on, but this led to
 unnecessary complications of the pipeline, for example, by introducing the necessity of handling scenarios when embeddings of one word end up
 in different clusters.
@@ -155,16 +155,16 @@ Once we had the word level embeddings, we applied \texttt{KMeans Clustering} to 
 was the most straightforward choice for the task. One of the challenges we faced was the choice of \texttt{K} - number of clusters. We tried
 several methods to determine the optimal number of clusters, including the \textit{Elbow Method} and \textit{Silhouette Score}. 
 The elbow method suggested that big values of \texttt{K} are better, up to the point that number of clusters was close to the number of tokens.
-Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. So we boiled down the
-problem to the simplest approach: trial and error.
+Silhouette score also was not very helpful, since bigger score didn't correspond to better evaluation scores afterwards. We approached the
+problem with the simplest and most straightforward method: trial and error.
 First we started with a binary classification, where we had two clusters: one for NE and one for Non NE. For this we settled on a value of
-\texttt{K} = 7.500, due to the sillhoutte score having the highest value, 0.1, at around that number of clusters. Where we then passed the clusters
+\texttt{K} = 7.500, due to the silhoutte score having the highest value, 0.1, at around that number of clusters. Where we then passed the clusters
 classified as NE to another kmeans clustering, where we had 207 clusters for the different types of NE.
 
 We used the KMeans implementation from the \texttt{scikit-learn} library, which provides a simple and efficient way to perform KMeans clustering.
 After clustering we labelled each cluster by taking the most frequent token's label in the cluster. We had a short discussion on whether 
 this makes the model semi-supervised, but concluded that it does not: the label data is only used after clustering, and does not influence
-how the clusters are formed. Then we evaluated the clusters as a baseline for our model. We used the macro F1 score to measure the perfomance of
+how the clusters are formed. Then we evaluated the clusters as a baseline for our model. We used the macro F1 score to measure the performance of
 the multi-class clustering, and got an average macro F1 score of 0,43, and 0,90 for the binary clustering, due to Capitalization, which
 lines up with the high results from the original paper.
 
@@ -176,7 +176,7 @@ pseudo-labels derived from the initial clustering, which makes the inherently su
 
 \begin{figure}[H]
   \includegraphics[width=\columnwidth]{F1-Epochs.png}
-  \caption{Rate of change of weighted average F1 score with increasing number of epochs.}
+  \caption{Rate of change of the F1 score with increasing number of epochs.}
   \label{fig:F1-Epochs}
 \end{figure}
 
@@ -208,43 +208,43 @@ dataset even though not explicitly mentioned, and all 8 books of \textit{BG} wer
 \end{table}
 
 To have a detailed overview of the results, we have included a classification report for each fold and each model 
-in Table~\ref{tab:Classification-Report}, which includes the precision, recall, macro F1 score, and weighted average F1 score for each fold and each model,
+in Table~\ref{tab:Classification-Report}, which includes the precision, recall, and macro F1 score for each fold and each model,
 namely Binary Clustering, Multi-Class Clustering, and Neural Network. While we understand that the modern standard score for NER is the
 Span F1 score, we have used the word F1 score for the sake of consistency with the original paper, as there is no mention of specificity of the type
 of F1 score used.
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|c|c|c|c|}
+  \begin{tabular}{|l|c|c|c|}
   \hline
-  \textbf{} & \textbf{Prec.} & \textbf{Rec.} & \textbf{M. F1} & \textbf{W. F1} \\
+  \textbf{} & \textbf{Prec.} & \textbf{Rec.} & \textbf{M. F1}\\
   \hline
-  \multicolumn{5}{|c|}{\textit{Binary Clustering}} \\
+  \multicolumn{4}{|c|}{\textit{Binary Clustering}} \\
   \hline
-  Fold 1   & 0.90 & 0.91 & 0.91 & 0.99 \\
-  Fold 2   & 0.86 & 0.78 & 0.82 & 0.98 \\
-  Fold 3   & 0.98 & 0.98 & 0.98 & 1.00 \\
+  Fold 1   & 0.90 & 0.91 & 0.91 \\
+  Fold 2   & 0.86 & 0.78 & 0.82 \\
+  Fold 3   & 0.98 & 0.98 & 0.98 \\
   \hline
-  \multicolumn{5}{|c|}{\textit{Multi-Class Clustering}} \\
+  \multicolumn{4}{|c|}{\textit{Multi-Class Clustering}} \\
   \hline
-  Fold 1   & 0.41 & 0.43 & 0.41 & 0.98 \\
-  Fold 2   & 0.38 & 0.34 & 0.35 & 0.97 \\
-  Fold 3   & 0.56 & 0.53 & 0.54 & 0.99 \\
+  Fold 1   & 0.41 & 0.43 & 0.41 \\
+  Fold 2   & 0.38 & 0.34 & 0.35 \\
+  Fold 3   & 0.56 & 0.53 & 0.54 \\
   \hline
-  \multicolumn{5}{|c|}{\textit{Neural Network}} \\
+  \multicolumn{4}{|c|}{\textit{Neural Network}} \\
   \hline
-  Fold 1   & 0.33 & 0.52 & 0.39 & 0.96 \\
-  Fold 2   & 0.29 & 0.42 & 0.32 & 0.95 \\
-  Fold 3   & 0.48 & 0.60 & 0.53 & 0.97 \\
+  Fold 1   & 0.33 & 0.52 & 0.39 \\
+  Fold 2   & 0.29 & 0.42 & 0.32 \\
+  Fold 3   & 0.48 & 0.60 & 0.53 \\
   \hline
   \end{tabular}
-  \caption{Classification report, showing Precision, Recall, Macro F1, and Weighted F1 for each fold and each model}
+  \caption{Classification report, showing Precision, Recall, and Macro F1 for each fold and each model}
   \label{tab:Classification-Report}
 \end{table}
 
 These results suggest a match in our expectations, that binary clustering performs extraordinarily well, aligning with the results of past
-research having a F1 score of 0.99 for the in-domain test set, however once we dive deeper
-into being able to distinguish between different named entitities, the results are much lower.
+research having an F1 score of 0.99 for the in-domain test set, however once we dive deeper
+into being able to distinguish between different named entities, the results are much lower.
 Additionally, the Neural Network does not provide any improvement over the multi-class clustering, however,
 we must note that the purpose of the Neural Network is to generalise on unseen data, and not to specifically outperform the multi-class clustering.
 
@@ -272,7 +272,7 @@ Due to the size of the dataset and the complexity of the task, we were not able 
 A comparable evaluation of NER using an unsupervised model within the English language has been shown to achieve high results,
 indicating that the size and distribution of the dataset is a significant factor in the performance of the model, even more so than the choice of model.
 
-Having a discrepancy between the original dataset wordcount and what we have received, based ont the original splits, having to
+Having a discrepancy between the original dataset wordcount and what we have received, based on the original splits, having to
 manually split the dataset has made our work substantially longer than expected, as we had to manually separate the dataset up into
 new files. Using the help of the original source of the dataset, we managed to find and split it appropriately, at a significant cost of time.
 
