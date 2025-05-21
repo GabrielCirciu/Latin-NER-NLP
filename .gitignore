@@ -9,6 +9,7 @@ fullCorpus/*
 .DS_Store
 
 # Made a Scripts folder for myself, will go into the notebook when I finish up functions
+Scripts
 Scripts/
 Scripts/*
 
@@ -21,3 +22,9 @@ requirements.txt
 Writing
 Writing/
 Writing/*
+Writing/latex
+Writing/latex/
+Writing/latex/*
+Writing/word
+Writing/word/
+Writing/word/*
