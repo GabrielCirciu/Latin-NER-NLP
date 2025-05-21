@@ -19,12 +19,17 @@ requirements.txt
 .vscode
 
 # Ignore the acl_latex.log
-Writing
-Writing/
-Writing/*
-Writing/latex
-Writing/latex/
-Writing/latex/*
-Writing/word
-Writing/word/
-Writing/word/*
+#Writing
+#Writing/
+#Writing/*
+#Writing/latex
+#Writing/latex/
+#Writing/latex/*
+#Writing/word
+#Writing/word/
+#Writing/word/*
+
+# Ignore spot
+ignore
+ignore/
+ignore/*
